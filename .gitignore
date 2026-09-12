@@ -1,0 +1,36 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Local configuration
+config.local.php
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database dumps
+*.sql
+*.sql.gz
+
+# Generated/user-uploaded files
+generated/*
+uploads/*
+
+# OS
+.DS_Store
+Thumbs.db
