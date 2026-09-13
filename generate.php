@@ -45,7 +45,7 @@ define('GROQ_MODEL', getenv('GROQ_MODEL') ?: 'openai/gpt-oss-20b');
  * page-batches and calls Gemini (falling back to Groq) once per batch -- the
  * same approach used from the command line, which avoids RECITATION blocks
  * that a single whole-document request can trigger on well-known papers. */
-define('PYTHON_BIN', 'python'); // 'python3' on macOS/Linux, or a full path if it's not on PATH
+define('PYTHON_BIN', 'python3'); // 'python3' on macOS/Linux, or a full path if it's not on PATH
 define('PDF_TO_QBANK_SCRIPT', __DIR__ . '/scripts/pdf_to_qbank.py');
 define('PAGES_PER_BATCH', 12);
 define('SCRIPT_MAX_RUNTIME_SECONDS', 1800); // hard safety cap (30 min) so a stuck run can't hang forever
