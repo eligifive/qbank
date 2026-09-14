@@ -80,6 +80,17 @@ import sys
 import time
 import uuid
 
+# Allow Python to find packages installed by the Azure deployment
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PYTHON_PACKAGES = os.path.join(
+    APP_ROOT,
+    ".python_packages",
+    "lib",
+    "site-packages"
+)
+
+if os.path.isdir(PYTHON_PACKAGES):
+    sys.path.insert(0, PYTHON_PACKAGES)
 import requests
 
 try:
