@@ -4,16 +4,24 @@ $dbname = getenv('DB_NAME') ?: 'question_generator';
 $username = getenv('DB_USER') ?: 'root';
 $password = getenv('DB_PASSWORD') ?: '';
 
-
+$sslCa = __DIR__ . '/ssl/DigiCertGlobalRootG2.crt.pem';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-    // Set PDO to throw exceptions on error
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // Set default fetch mode to associative array
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $dsn = "mysql:host={$host};port=3306;dbname={$dbname};charset=utf8mb4";
+
+    $options = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+
+        // Azure MySQL SSL/TLS
+        PDO::MYSQL_ATTR_SSL_CA => $sslCa,
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
+    ];
+
+    $pdo = new PDO($dsn, $username, $password, $options);
+
 } catch (PDOException $e) {
-    // In production, log this error instead of showing it
     error_log("Database Connection Failed - db.php: " . $e->getMessage());
     die("Database Connection Failed. Please check error logs.");
 }
